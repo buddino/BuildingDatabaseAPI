@@ -2,7 +2,7 @@ package it.cnit.gaia.buildingdb;
 
 import java.util.List;
 
-public class AllAreasResultDTO {
+public class AreasResultDTO {
 	String result;
 	List<AreaDTO> items;
 	String error;
@@ -11,7 +11,7 @@ public class AllAreasResultDTO {
 		return error;
 	}
 
-	public AllAreasResultDTO setError(String error) {
+	public AreasResultDTO setError(String error) {
 		this.error = error;
 		return this;
 	}
@@ -19,7 +19,7 @@ public class AllAreasResultDTO {
 		return result;
 	}
 
-	public AllAreasResultDTO setResult(String result) {
+	public AreasResultDTO setResult(String result) {
 		this.result = result;
 		return this;
 	}
@@ -28,7 +28,7 @@ public class AllAreasResultDTO {
 		return items;
 	}
 
-	public AllAreasResultDTO setItems(List<AreaDTO> items) {
+	public AreasResultDTO setItems(List<AreaDTO> items) {
 		this.items = items;
 		return this;
 	}

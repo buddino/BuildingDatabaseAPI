@@ -2,9 +2,7 @@ package it.cnit.gaia.buildingdb;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 
-public class BuildingDTO {
-	Long id;
-	String name;
+public class BuildingDTO extends AreaDTO {
 	Double sqmt;
 	Long people;
 	String country;
@@ -64,4 +62,8 @@ public class BuildingDTO {
 				.append("country", country)
 				.toString();
 	}
+
+
+
+
 }

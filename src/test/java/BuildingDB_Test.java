@@ -50,4 +50,22 @@ public class BuildingDB_Test {
 		Assertions.fail("No BuildingException thrown");
 	}
 
+	@Test
+	public void testGetSubAreas() throws BuildingDatabaseException {
+		List<AreaDTO> areas = db.getSubareas(20L);
+		areas.forEach(subarea -> {
+			try {
+				System.out.println(mapper.writeValueAsString(subarea));
+			} catch (JsonProcessingException e) {
+				e.printStackTrace();
+			}
+		});
+	}
+
+	@Test
+	public void testTree() throws BuildingDatabaseException, JsonProcessingException {
+		BuildingDTO school = db.getBuildingStructure(155076L);
+		System.out.println(mapper.writeValueAsString(school));
+	}
+
 }

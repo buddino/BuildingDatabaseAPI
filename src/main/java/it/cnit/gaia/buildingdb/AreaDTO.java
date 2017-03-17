@@ -2,12 +2,19 @@ package it.cnit.gaia.buildingdb;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+
 public class AreaDTO {
 	String name;
 	Long id;
 	String description;
 	String type;
 	Object json;
+
+	Set<AreaDTO> children = new HashSet<>();
 
 	public String getName() {
 		return name;
@@ -52,6 +59,22 @@ public class AreaDTO {
 	public AreaDTO setJson(Object json) {
 		this.json = json;
 		return this;
+	}
+
+	public void add(AreaDTO area){
+		children.add(area);
+	}
+
+	public void remove(AreaDTO area){
+		children.remove(area);
+	}
+
+	public Set<AreaDTO> getChildren(){
+		return Collections.unmodifiableSet(children);
+	}
+
+	public void addAll(Collection<AreaDTO> list){
+		children.addAll(list);
 	}
 
 	@Override

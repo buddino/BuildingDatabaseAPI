@@ -46,7 +46,7 @@ public class BuildingDatabaseService {
 		String uri = baseURL + "utility/areas/getall/{id}";
 		Map<String, String> params = new HashMap<>();
 		params.put("id", String.valueOf(buildingId));
-		AllAreasResultDTO result = restTemplate.getForObject(uri, AllAreasResultDTO.class, params);
+		AreasResultDTO result = restTemplate.getForObject(uri, AreasResultDTO.class, params);
 		if (result.getResult().equals("KO"))
 			throw new BuildingDatabaseException(result.getError());
 		return result.getItems();
@@ -82,5 +82,35 @@ public class BuildingDatabaseService {
 		return result.getItem();
 	}
 
+	public List<AreaDTO> getSubareas(Long parentAreaId) throws BuildingDatabaseException {
+		String uri = baseURL + "utility/subareas/{id}";
+		Map<String, String> params = new HashMap<>();
+		params.put("id", String.valueOf(parentAreaId));
+		AreasResultDTO result = restTemplate.getForObject(uri, AreasResultDTO.class, params);
+		if (result.getResult().equals("KO"))
+			throw new BuildingDatabaseException(result.getError());
+		return result.getItems();
+	}
+
+	public BuildingDTO getBuildingStructure(Long buildingId) throws BuildingDatabaseException {
+		BuildingDTO building = getBuildingById(155076L);
+		//Add the school to the map
+		Map<Long,AreaDTO> unusedAreas = new HashMap<>();  //Riguarda try better approach
+		List<AreaDTO> areas = getAreas(155076L);
+		//Add all the area to the map
+		areas.forEach(a -> unusedAreas.put(a.getId(),a));
+		//Iterate all the areas and for each get the subareas
+		for(AreaDTO area : areas){
+			List<AreaDTO> subareas = getSubareas(area.getId());
+			//Iterate all the subareas of the area and add them to the list
+			for(AreaDTO subarea : subareas){
+				unusedAreas.remove(subarea.getId());
+				area.add(subarea);
+			}
+		}
+		//Add the unused areas to the school
+		building.addAll(unusedAreas.values());
+		return building;
+	}
 
 }
