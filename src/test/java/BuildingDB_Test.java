@@ -1,9 +1,6 @@
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import it.cnit.gaia.buildingdb.AreaDTO;
-import it.cnit.gaia.buildingdb.BuildingDTO;
-import it.cnit.gaia.buildingdb.BuildingDatabaseException;
-import it.cnit.gaia.buildingdb.BuildingDatabaseService;
+import it.cnit.gaia.buildingdb.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -12,7 +9,7 @@ import java.util.List;
 public class BuildingDB_Test {
 
 	ObjectMapper mapper = new ObjectMapper();
-	BuildingDatabaseService db = new BuildingDatabaseService();
+	BuildingDatabaseService db = new BuildingDatabaseServiceImpl();
 
 	@Test
 	public void testGetBuildings() throws BuildingDatabaseException {
@@ -65,7 +62,8 @@ public class BuildingDB_Test {
 	@Test
 	public void testTree() throws BuildingDatabaseException, JsonProcessingException {
 		BuildingDTO school = db.getBuildingStructure(155076L);
-		System.out.println(mapper.writeValueAsString(school));
+		ObjectMapper jsonMapper = new ObjectMapper();
+		System.out.println(jsonMapper.writerWithDefaultPrettyPrinter().writeValueAsString(school));
 	}
 
 }
